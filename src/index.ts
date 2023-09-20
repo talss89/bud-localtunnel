@@ -1,10 +1,10 @@
 /**
- * bud-wp-editor-query
+ * bud-localtunnel
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
  */
 
-import BudWpEditorQuery from './extension.js'
+import BudLocaltunnel from './extension.js'
 import './types.js'
-export default BudWpEditorQuery
+export default BudLocaltunnel 

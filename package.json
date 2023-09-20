@@ -1,32 +1,21 @@
 {
-  "name": "bud-wp-editor-query",
-  "version": "0.0.4",
-  "description": "Extract WordPress editor styles and split into another stylesheet using specialised media queries",
+  "name": "bud-localtunnel",
+  "version": "0.0.1",
+  "description": "Forward `bud dev` to the web with localtunnel",
   "main": "index.js",
-  "repository": "https://github.com/talss89/bud-wp-editor-query",
+  "repository": "https://github.com/talss89/bud-localtunnel",
   "contributors": [
     {
       "email": "tom.lawton@cndu.it",
       "name": "Tom Lawton",
       "url": "https://github.com/talss89"
-    },
-    {
-      "email": "developers@tinypixel.dev",
-      "name": "Kelly Mears",
-      "url": "https://github.com/kellymears"
-    },
-    {
-      "email": "strarsis@gmail.com",
-      "name": "strarsis",
-      "url": "https://github.com/strarsis"
     }
   ],
   "license": "MIT",
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./types": "./lib/types.js",
-    "./wp-editor-query-loader": "./lib/loaders/wp-editor-query-loader.js"
+    "./types": "./lib/types.js"
   },
   "typesVersions": {
     "*": {
@@ -52,9 +41,9 @@
     "tslib": "2.6.2"
   },
   "dependencies": {
-    "css-mediaquery": "^0.1.2"
+    "localtunnel": "^2.0.2"
   },
-  {
-    "bud": {"version": ">=6.16.0"}
+  "bud": {
+    "version": ">=6.16.0"
   }
 }

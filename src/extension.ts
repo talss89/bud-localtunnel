@@ -5,54 +5,35 @@ import type {WebpackPluginInstance} from '@roots/bud-framework/config'
 
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 
+import localtunnel from 'localtunnel/localtunnel.js'
+
 interface Options {}
 
-@label(`bud-wp-editor-query`)
-export default class BudWpEditorQuery extends Extension<
+@label(`bud-localtunnel`)
+export default class BudLocaltunnel extends Extension<
   Options,
   WebpackPluginInstance
-> {
-  @bind
-  public override async register(bud: Bud) {
-    bud.build.setLoader(
-      `wp-editor-query-loader`,
-      await bud.module.resolve(
-        'bud-wp-editor-query/wp-editor-query-loader',
-      ),
-    )
-    bud.build.setItem(`wp-editor`, {
-      loader: 'wp-editor-query-loader',
-      options: {},
-    })
-  }
+> { 
+
+  #devTunnel: any;
 
   @bind
   public override async configAfter(bud: Bud) {
+    if(bud.isDevelopment) {
+      this.#devTunnel = await localtunnel({ subdomain: bud.context.label, local_host: bud.server?.url.hostname, port: bud.server?.url.port })
+      
+      const tunnelUrl = new URL(this.#devTunnel.url);
+      
+      bud.setPublicUrl(tunnelUrl)
 
-    bud.build.rules.css?.setUse((items = []) => {
-      items.splice(items.indexOf('postcss'), 0, 'wp-editor')
-      return items
-    })
+      this.#devTunnel.on('close', () => {
+        throw new Error('Localtunnel has been closed. Please restart bud to reopen.');
+      })
 
-    bud.build.rules.css?.setUse((items = []) => {
-      items.splice(items.indexOf('postcss'), 0, 'wp-editor')
-      return items
-    })
-
-    bud.build.rules.sass?.setUse((items = []) => {
-      items.splice(items.indexOf('postcss'), 0, 'wp-editor')
-      return items
-    })
-
-    bud.build.rules['css-module']?.setUse((items = []) => {
-      items.splice(items.indexOf('postcss'), 0, 'wp-editor')
-      return items
-    })
-
-    bud.build.rules['sass-module']?.setUse((items = []) => {
-      items.splice(items.indexOf('postcss'), 0, 'wp-editor')
-      return items
-    })
+      this.#devTunnel.on('error', (err) => {
+        throw new Error(err);
+      })
+    }
   }
 
 }
