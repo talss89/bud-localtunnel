@@ -1,6 +1,6 @@
 {
   "name": "bud-localtunnel",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Forward `bud dev` to the web with localtunnel",
   "main": "index.js",
   "repository": "https://github.com/talss89/bud-localtunnel",
