@@ -20,7 +20,7 @@ export default class BudLocaltunnel extends Extension<
   @bind
   public override async configAfter(bud: Bud) {
     if(bud.isDevelopment) {
-      this.#devTunnel = await localtunnel({ subdomain: bud.context.label, local_host: bud.server?.url.hostname, port: bud.server?.url.port })
+      this.#devTunnel = await localtunnel({ subdomain: bud.context.label.length > 3 ? bud.context.label : undefined, local_host: bud.server?.url.hostname, port: bud.server?.url.port })
       
       const tunnelUrl = new URL(this.#devTunnel.url);
       
